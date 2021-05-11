@@ -1,2 +1,2 @@
 # DecisionAnalysis
-# Decision analysis project regarding gender differences in agriculture.
+Decision analysis project regarding gender differences in agriculture.
