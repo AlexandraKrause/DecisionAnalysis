@@ -161,10 +161,12 @@ example_decision_function <- function(x, varnames){
 #####second step:get data####
 library(readr)
 
-example_input_table = "https://raw.githubusercontent.com/CWWhitney/Decision_Analysis_Course/main/data/example_input_table.csv"
+#example_input_table = "https://raw.githubusercontent.com/CWWhitney/Decision_Analysis_Course/main/data/example_input_table.csv"
+#input_table <- read_csv(url(example_input_table))
 
-input_table <- read_csv(url(example_input_table))
-example_data <- read.csv("example_input_table.csv")
+example_data <- read.csv("./example_input_table.csv")
+names(input_table)
+input_table <-read.csv("./example_input_table.csv")
 names(input_table)
 
 ####perform a monte carlo simulation####
@@ -188,7 +190,7 @@ names(input_table)
 #it often makes sense to use a lower number).
 
 mcSimulation_results <- decisionSupport::mcSimulation(
-  estimate = decisionSupport::estimate_read_csv("data/example_input_table.csv"),
+  estimate = decisionSupport::estimate_read_csv("./example_input_table.csv"),
   model_function = example_decision_function,
   numberOfModelRuns = 200,
   functionSyntax = "plainNames"
@@ -315,4 +317,5 @@ compound_figure(mcSimulation_object = mcSimulation_results,
                 EVPIresults = evpi, decision_var_name = "NPV_decision_do", 
                 cashflow_var_name = "Cashflow_decision_do", 
                 base_size = 7)
+
 
