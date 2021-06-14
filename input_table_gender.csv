@@ -1,36 +1,23 @@
-Description;label;variable;distribution;lower ;upper
-Percentage risk of husband/family power;(%);Husband_risk;tnorm_0_1;0,5;0,5
-Percentage risk of divorce;(%);Divorce_risk;tnorm_0_1;0,8;0,85
-Percentage risk of death of husband ;(%);Man_Death_risk;tnorm_0_1;;
-(Percentage risk of bancruptcy);(%);Bancruptcy_risk;tnorm_0_1;;
-Obstacles:;;;;;
-Percentage risk of late transfer of farming business ;(%);Late_transfer_risk;tnorm_0_1;;
-(Percentage risk of no child and elderly care services);(%);Child_Elderly_risk;tnorm_0_1;;
-;;;;;
-Use child care options (kindergarden);requirement for financing;costs for child care;;;
-Use elderly care options (old peoples home and 24h care giver);requirement for financing;costs for elderly care;;;
-No contract/need for elderly care when transfer of farming business ;requirement for financing;save costs for elderly care;;0,4;0,4
-;;;;;
-Husbands/ family money;financing;Family_money;;100;500
-Payed on farm job;financing;Farm_job_payed;;960;1300
-;;;;;
-own business branch (farm shop f.e.-> zoe);financing;Own_branch;;;
-self-employment (rent out farm appartments);financing;Self_employed;;1000;1500
-Off-farm job (primary school teaching);financing;Off-Farm_job;;;
-;;;;;
-Agricultural insurance;options;Agri_insurance;;360;360
-state insurance;options;State_insurance;;;
-private insurance;options;Private_insurance;;;
-(real estate) too poor?;options;Real_estate;;;
-ETF (exchange-traded fund, investment);options;ETF;;;
-;;;;;
-Default option:;;;;;
-no sallary;financing;;;0;0
-Husbands/ family money;option;;;100;500
-Agriculatural insurance;options;;;360;360
-;;;;;
-not for next week, unless you have an idea. Might be too complicted in not much time:;;;;;
-Discount rate (%);;;;;
-Coefficient of variation, ratio of the standard deviation to the mean (a measure of relative variability);;;;;
-;;;;;
-# Minimum Pension: 1600;;;;;
+description;label;variable;distribution;lower ;upper
+Percentage_risk_of_husband_or_family_power;Percent;Husband_risk;tnorm_0_1;0.51;0.5
+Percentage_risk_of_divorce;Percent;Divorce_risk;tnorm_0_1;0.81;0.85
+Percentage_risk_of_death_of_husband ;Percent;Man_Death_risk;tnorm_0_1;0.81;0.8
+Percentage_risk_of_bancruptcy;Percent;Bancruptcy_risk;tnorm_0_1;0.81;0.8
+Percentage_risk_of_late_transfer_of_farming business ;Percent;Late_transfer_risk_obstacle;tnorm_0_1;0.81;0.8
+Percentage_risk_of_no_child_and_elderly_care_services);Percent;Child_Elderly_risk_obstacle;tnorm_0_1;0.81;0.8
+Use_child_care_options_kindergarden;requirement_for_financing;Costs_for_child_care;posnorm;0.81;0.8
+Use_elderly_care_options_old_peoples_home_and_24h_care_giver);requirement_for_financing;Costs_for_elderly_care;posnorm;0.81;0.8
+No_contract_or_need_for_elderly_care_when_transfer;requirement_for_financing;Save_costs_for_elderly_care;posnorm;0.41;0.4
+Husbands_or_family_money;financing;Family_money;posnorm;101;500
+Payed_on_farm_job;financing;Farm_job_payed;posnorm;961;1300
+Own_business_branch ;financing;Own_branch;posnorm;1000;1500
+Self-employment;financing;Self_employed;posnorm;1000;1500
+Off-farm_job ;financing;Off-Farm_job;posnorm;361;360
+Agricultural_insurance;options;Agri_insurance;posnorm;361;360
+State_insurance;options;State_insurance;posnorm;361;360
+Private_insurance;options;Private_insurance;posnorm;361;360
+Real_estate;options;Real_estate;posnorm;361;360
+ETF;options;ETF;posnorm;361;360
+No_sallary;financing;Default_option;posnorm;0.11;0.1
+Husbands_or_family_money;option;Default_option;posnorm;100;500
+Agriculatural_insurance;options;Default_option;posnorm;361;360
