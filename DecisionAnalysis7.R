@@ -15,6 +15,7 @@ library(dplyr)
 #time series with variation from a pre-defined mean and 
 #coefficient of variation,chance_event() to simulate whether events 
 #occur and discount() to discount values along a time series.
+#discount: diskontierung: auf uhrsprungsjahr zurückrechnen
 
 example_decision_function <- function(x, varnames){
   
@@ -164,7 +165,7 @@ library(readr)
 #example_input_table = "https://raw.githubusercontent.com/CWWhitney/Decision_Analysis_Course/main/data/example_input_table.csv"
 #input_table <- read_csv(url(example_input_table))
 
-example_data <- read.csv("./example_input_table.csv")
+example_data <- read.csv("example_input_table.csv")
 names(input_table)
 input_table <-read.csv("./example_input_table.csv")
 names(input_table)
