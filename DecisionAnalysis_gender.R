@@ -1,15 +1,14 @@
 library(readr)
-#install.packages("decisionSupport")
 library(decisionSupport)
-#install.packages("DiagrammeR")
 library (DiagrammeR)
 library(tidyverse)
 library(ggplot2)
 library(plyr)
 library(dplyr)
 
-####second step:get data####
 
+  
+####first step:get data####
 
 #input_table_gender <-read.delim("./input_table_gender.txt", header=T)
 #names(input_table_gender)
@@ -17,6 +16,69 @@ library(dplyr)
 input_table_gender <-read.csv2("./input_table_gender.csv")
 names(input_table_gender)
 
+####second:play around####
+
+#First we generate a model as a function.
+#We use the decisionSupport functions vv() to produce 
+#time series with variation from a pre-defined mean and 
+#coefficient of variation,chance_event() to simulate whether events 
+#occur and discount() to discount values along a time series.
+#discount: diskontierung: auf uhrsprungsjahr zur?ckrechnen
+
+decision_function <- function(x, varnames){
+  
+# calculate ex-ante risks ####
+    Husband_risk <-
+    chance_event(Husband_risk, 1, 0, n = 1)
+
+    Divorce_risk <-
+    chance_event(Divorce_risk, 1, 0, n = 1)
+
+    Man_Death_risk <-
+    chance_event(Man_Death_risk, 1, 0, n = 1)
+    
+    Bancruptcy_risk<-
+    chance_event(Man_Death_risk, 1, 0, n = 1)
+    
+    Late_transfer_risk_obstacle<-
+      chance_event(Man_Death_risk, 1, 0, n = 1)
+    
+    Child_Elderly_risk_obstacle<-
+      chance_event(Man_Death_risk, 1, 0, n = 1)
+
+#65 jahre rente mal 12 Monate=780
+
+    # use No_sallary in the chance_event() 
+    # to adjust pension for probability of no job
+    # assuming  0 Own_business_branch  at all in the event of no job
+    No_sallary_adjusted_Own_business_branch <- chance_event(chance = No_sallary, 
+                                        value_if = 0,
+                                        value_if_not = Own_business_branch ,
+                                        n = 780)
+    
+    # calculate profit without net
+    profit_no_net <- hail_adjusted_yield*prices
+    
+    # calculate profit with the net
+    profit_with_net <- (yields*prices)-invest_costs
+    
+    # use 'discount' to calculate net present value 
+    # 'discount_rate' is expressed in percent
+    NPV_no_net <- discount(profit_no_net, discount_rate = 5, calculate_NPV = TRUE)
+    NPV_net <- discount(profit_with_net, discount_rate = 5, calculate_NPV = TRUE)
+    
+    # calculate the overall NPV of the decision (do - don't do)
+    NPV_decision <- NPV_net-NPV_no_net
+    
+    return(list(NPV_no_net =  NPV_no_net,
+                NPV_net =  NPV_net, 
+                NPV_decision = NPV_decision))
+}
+
+    
+    
+    
+    
 ####perform a monte carlo simulation####
 
 #Using the model function above,

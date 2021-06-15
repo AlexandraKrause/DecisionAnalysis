@@ -107,7 +107,7 @@ hail_function <- function(){
 # Run the Monte Carlo simulation using the model function
 hail_mc_simulation <- mcSimulation(estimate = as.estimate(hail_estimates),
                                    model_function = hail_function,
-                                   numberOfModelRuns = 200,
+                                   numberOfModelRuns = 10000,
                                    functionSyntax = "plainNames")
 
 hail_mc_simulation
