@@ -1,21 +1,22 @@
-description;label;variable;distribution;lower ;upper
-Risk_of_husband_or_family_power;Percent;Husband_risk;tnorm_0_1;0.45;0.5
-Risk_of_divorce;Percent;Divorce_risk;tnorm_0_1;0.2;0.4
-Risk_of_death_of_husband ;Percent;Man_Death_risk;tnorm_0_1;0;0.8
-Risk_of_bancruptcy;Percent;Bancruptcy_risk;tnorm_0_1;0.1;0.11
-Risk_of_late_transfer_of_farming business ;Percent;Late_transfer_risk_obstacle;tnorm_0_1;0.45;0.5
-Risk_of_no_child_care_services;Percent;Child_Elderly_risk_obstacle;tnorm_0_1;0.1;0.8
-Use_child_care_options_kindergarden;requirement_for_financing;Costs_for_child_care;posnorm;101;500
-Use_elderly_care_options_old_peoples_home_and_24h_care_giver;requirement_for_financing;Costs_for_elderly_care;posnorm;101;500
-Husbands_or_family_money;financing;Family_money;posnorm;1;250
-Payed_on_farm_job;financing;Farm_job_payed;posnorm;961;1300
-Own_business_branch ;financing;Own_branch;posnorm;1000;1500
-Self-employment;financing;Self_employed;posnorm;1000;1500
-Off-farm_job ;financing;Off-Farm_job;posnorm;311;360
-Agricultural_insurance;options;Agri_insurance;posnorm;311;360
-State_insurance_with_investment;options;State_insurance2;posnorm;311;360
-State_insurance;options;State_insurance;posnorm;311;360
-Private_insurance;options;Private_insurance;posnorm;311;360
-ETF;options;ETF;posnorm;311;360
-Husbands_or_family_money1;option;Default_option2;posnorm;250;500
-Agriculatural_insurance1;options;Default_option3;posnorm;350;360
+Description;label;variable;distribution;lower ;median;upper
+Risk_of_husband_or_family_power;Percent;Husband_risk;tnorm_0_1;0,45;NA;0,5
+Risk_of_divorce;Percent;Divorce_risk;tnorm_0_1;0,2;NA;0,4
+Risk_of_death_of_husband ;Percent;Man_Death_risk;tnorm_0_1;0,4;NA;0,8
+Risk_of_bancruptcy;Percent;Bancruptcy_risk;tnorm_0_1;0,1;NA;0,11
+Risk_of_late_transfer_of_farming business ;Percent;Late_transfer_risk_obstacle;tnorm_0_1;0,45;NA;0,5
+Risk_of_no_child_care_services;Percent;Child_Elderly_risk_obstacle;tnorm_0_1;0,1;NA;0,8
+Use_child_care_options_kindergarden;requirement_for_financing;Costs_for_child_care;posnorm;101,0;NA;500,0
+Use_elderly_care_options_old_peoples_home_and_24h_care_giver;requirement_for_financing;Costs_for_elderly_care;posnorm;101,0;NA;500,1
+Husbands_or_family_money;financing;Family_money;posnorm;50,0;NA;500,2
+Payed_on_farm_job;financing;Farm_job_payed;posnorm;961,0;NA;1300,0
+Own_business_branch ;financing;Own_branch;posnorm;100,0;NA;1300,1
+Self-employment;financing;Self_employed;posnorm;100,0;NA;1300,2
+Off-farm_job ;financing;Off-Farm_job;posnorm;100,1;NA;1300,3
+Agricultural_insurance;options;Agri_insurance;posnorm;100,2;NA;1300,4
+State_insurance_with_investment;options;State_insurance2;posnorm;100,3;NA;1300,5
+State_insurance;options;State_insurance;posnorm;100,4;NA;1300,6
+Private_insurance;options;Private_insurance;posnorm;100,5;NA;1300,7
+ETF;options;ETF;posnorm;100,6;NA;1300,8
+Husbands_or_family_money1;option;Default_option2;posnorm;100,7;NA;1300,9
+Agriculatural_insurance1;options;Default_option3;posnorm;100,8;NA;130,10
+Coefficient of variation, ratio of the standard deviation;coeff. Variation;var_CV;posnorm;5,0;NA;20,0

@@ -12,11 +12,14 @@ library(dplyr)
 
 #input_table_gender <-read.delim("./input_table_gender.txt", header=T)
 #names(input_table_gender)
+example <- read.csv("./example_input_table.csv")
 
-input_table_gender <-read.csv2("./input_table_gender.csv")
+input_table_gender <-read.csv2("./input_table_gender.csv", dec = ",")
 names(input_table_gender)
+str(input_table_gender)
 
-####second:play around####
+test <- na.omit(input_table_gender)
+####function####
 
 #First we generate a model as a function.
 #We use the decisionSupport functions vv() to produce 
@@ -26,8 +29,28 @@ names(input_table_gender)
 #discount: diskontierung: auf uhrsprungsjahr zur?ckrechnen
 
 decision_function <- function(x, varnames){
+
+####vvs####  
+  # use vv() to add variability to the 
+  # random draws of own business branch and of 
+  #state insurance, private insurance, ETF
+  # over a 65 year simulation 
+  #65 jahre rente mal 12 Monate=780
+  Own_business_branch <- vv(var_mean = Own_branch, 
+               var_CV = var_CV, 
+               n = 780)
   
-# calculate ex-ante risks ####
+#  ETF <- vv(var_mean = ETF, 
+#               var_CV = var_CV, 
+#               n = 780)    
+  
+  Private_insurance <- vv(var_mean = Private_insurance, 
+               var_CV = var_CV, 
+               n = 780)
+
+  
+  
+#### calculate ex-ante risks ####
     Husband_risk <-
     chance_event(Husband_risk, 1, 0, n = 1)
 
@@ -45,38 +68,108 @@ decision_function <- function(x, varnames){
     
     Child_Elderly_risk_obstacle<-
       chance_event(Man_Death_risk, 1, 0, n = 1)
-
-#65 jahre rente mal 12 Monate=780
-
-    # use No_sallary in the chance_event() 
-    # to adjust pension for probability of no job
-    # assuming  0 Own_business_branch  at all in the event of no job
-    No_sallary_adjusted_Own_business_branch <- chance_event(chance = No_sallary, 
-                                        value_if = 0,
-                                        value_if_not = Own_business_branch ,
-                                        n = 780)
     
-    # calculate profit without net
-    profit_no_net <- hail_adjusted_yield*prices
+
+####add variability####
     
-    # calculate profit with the net
-    profit_with_net <- (yields*prices)-invest_costs
+    
+    ####start with own business branch####
+    # adjust branches for probability that other branches before were not "taken"
+    #65 jahre rente mal 12 Monate=780
+    
+    # use chance_event() 
+    # assuming  0 Own_business_branch  at all in the event of no child care option
+    Costs_for_child_care_adjusted_Own_business_branch <- chance_event(chance = Costs_for_child_care, 
+                                                                      value_if = 0,
+                                                                      value_if_not = Own_branch,
+                                                                      n = 780)
+
+    
+    # use chance_event() 
+    # assuming  0 Own_business_branch  at all in the event of no elderly care option
+    Costs_for_elderly_care_adjusted_Own_business_branch <- chance_event(chance = Costs_for_elderly_care, 
+                                                                        value_if = 0,
+                                                                        value_if_not = Own_branch,
+                                                                        n = 780)
+    
+    # calculate pension without own business branch
+    profit_without_Own_business_branch <- Default_option3 + Default_option2
+    profit_with_Own_business_branch <- Own_branch
+    
+    # calculate pension with own business branch
+#    profit_wit_Own_business_branch<- Agricultural_insurance
+    
     
     # use 'discount' to calculate net present value 
     # 'discount_rate' is expressed in percent
-    NPV_no_net <- discount(profit_no_net, discount_rate = 5, calculate_NPV = TRUE)
-    NPV_net <- discount(profit_with_net, discount_rate = 5, calculate_NPV = TRUE)
+    NPV_no_branch <- discount( profit_without_Own_business_branch, discount_rate = 5, calculate_NPV = TRUE)    
+    NPV_branch <- discount(profit_with_Own_business_branch, discount_rate = 5, calculate_NPV = TRUE)
     
     # calculate the overall NPV of the decision (do - don't do)
-    NPV_decision <- NPV_net-NPV_no_net
+    NPV_decision <- NPV_branch-NPV_no_branch
     
-    return(list(NPV_no_net =  NPV_no_net,
-                NPV_net =  NPV_net, 
+    return(list(NPV_no_branch =  NPV_no_branch,
+                NPV_branch =  NPV_branch, 
+                NPV_decision = NPV_decision))
+
+    
+    # calculate pension without private insurance
+    profit_without_private_insurance <- Default_option3 + Default_option2
+    
+    # calculate pension with private insurance
+    profit_with_private_insurance <- Private_insurance
+    
+    # use 'discount' to calculate net present value 
+    # 'discount_rate' is expressed in percent
+    NPV_no_pi <- discount(profit_without_private_insurance, discount_rate = 5, calculate_NPV = TRUE)
+    NPV_pi <- discount(profit_with_private_insurance, discount_rate = 5, calculate_NPV = TRUE)
+    
+    # calculate the overall NPV of the decision (do - don't do)
+    NPV_decision <- NPVpi-NPV_no_pi
+    
+    return(list(NPV_no_pi =  NPV_no_pi,
+                NPV_pi =  NPV_pi, 
                 NPV_decision = NPV_decision))
 }
 
+
+####Model branches####
+# Estimate the pension without plan
+#pension <- Husbands_or_family_money1 * Agriculatural_insurance1
+#no cost
+
+      
+    # Benefits from plan ####
+    # The following allows considering that intervention strips may
+    # restrict access to the reservoir for livestock.
     
+#    if (intervention_strips)
+#      TLU_intervention <-
+#      TLU * (1 + change_TLU_intervention_perc / 100)
+#    else
+#      TLU_intervention <- TLU
     
+#    if (decision_intervention_strips){
+#      livestock_benefits <- TLU_intervention * TLU_profit
+#      total_benefits <- crop_production + livestock_benefits
+#      net_benefits <- total_benefits - intervention_cost
+#      result_interv <- net_benefits}
+    
+#    
+#    if (!decision_intervention_strips){
+#      livestock_benefits <- TLU_no_intervention * TLU_profit
+#      total_benefits <- livestock_benefits
+#      net_benefits <- total_benefits - intervention_cost
+#      result_n_interv <- net_benefits}
+    
+#} #close intervention loop bracket
+
+#NPV_interv <-
+#discount(result_interv, discount_rate, calculate_NPV = TRUE)
+
+#NPV_n_interv <-
+#  discount(result_n_interv, discount_rate, calculate_NPV = TRUE)
+
     
     
 ####perform a monte carlo simulation####
@@ -99,20 +192,20 @@ decision_function <- function(x, varnames){
 #so especially when the model is still under development, 
 #it often makes sense to use a lower number).
 
-
-
 mcSimulation_results <- decisionSupport::mcSimulation(
   estimate = decisionSupport::as.estimate(input_table_gender),
-  model_function = input_table_gender,
+  model_function = decision_function,
   numberOfModelRuns = 200,
   functionSyntax = "plainNames"
 )
 
-# Run the Monte Carlo simulation using the model function
-chile_mc_simulation <- mcSimulation(estimate = as.estimate(input_table_gender),
-                                    model_function = input_table_gender,
-                                    numberOfModelRuns = 800,
-                                    functionSyntax = "plainNames")
+mcSimulation_results
+
+#Run the Monte Carlo simulation using the model function
+#chile_mc_simulation <- mcSimulation(estimate = as.estimate(input_table_gender),
+#                                    model_function = input_table_gender,
+#                                    numberOfModelRuns = 800,
+#                                   functionSyntax = "plainNames")
 
 ####perform a monte carlo simulation####
 
@@ -146,10 +239,21 @@ chile_mc_simulation <- mcSimulation(estimate = as.estimate(input_table_gender),
 #i.e. the expected NPV if we choose to do the
 #intervention Interv_NPV or not do the intervention NO_Interv_NPV.
 
-decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
-                                    vars = c("Interv_NPV", "NO_Interv_NPV"),
-                                    method = 'smooth_simple_overlay', 
-                                    base_size = 7)
+#Here we show the results of a Monte Carlo simulation 
+#(200 model runs) for 
+#estimating the comparative profits with and without hail nets.
+
+#Here we show the results of a Monte Carlo simulation (200 model runs) for
+#estimating the comparative profits with and without hail nets.
+plot_distributions(mcSimulation_object = mcSimulation_results, 
+                   vars = c("NPV_no_pi", "NPV_npi","NPV_no_pi", "NPV_no_branch", "NPV_branch"),
+                   method = 'smooth_simple_overlay', 
+                   base_size = 7)
+
+#decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+#                                    vars = c("Interv_NPV", "NO_Interv_NPV"),
+#                                    method = 'smooth_simple_overlay', 
+#                                    base_size = 7)
 
 # boxplots
 
@@ -162,8 +266,11 @@ decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results,
 #(light circles outside of boxes).
 
 decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
-                                    vars = c("Interv_NPV",
-                                             "NO_Interv_NPV"),
+                                    vars = c("NPV_no_pi",
+                                             "NPV_npi",
+                                             "NPV_no_pi", 
+                                             "NPV_no_branch",
+                                             "NPV_branch"),
                                     method = 'boxplot')
 
 #distribution
