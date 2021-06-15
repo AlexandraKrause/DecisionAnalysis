@@ -1,0 +1,23 @@
+description	label	variable	distribution	lower 	upper
+Percentage_risk_of_husband_or_family_power	Percent	Husband_risk	tnorm_0_1	0.51	0.6
+Percentage_risk_of_divorce	Percent	Divorce_risk	tnorm_0_1	0.81	0.85
+Percentage_risk_of_death_of_husband 	Percent	Man_Death_risk	tnorm_0_1	0.81	0.9
+Percentage_risk_of_bancruptcy	Percent	Bancruptcy_risk	tnorm_0_1	0.81	0.9
+Percentage_risk_of_late_transfer_of_farming business 	Percent	Late_transfer_risk_obstacle	tnorm_0_1	0.81	0.9
+Percentage_risk_of_no_child_and_elderly_care_services)	Percent	Child_Elderly_risk_obstacle	tnorm_0_1	0.81	0.9
+Use_child_care_options_kindergarden	requirement_for_financing	Costs_for_child_care	posnorm	0.81	0.9
+Use_elderly_care_options_old_peoples_home_and_24h_care_giver)	requirement_for_financing	Costs_for_elderly_care	posnorm	0.81	0.9
+No_contract_or_need_for_elderly_care_when_transfer	requirement_for_financing	Save_costs_for_elderly_care	posnorm	0.41	0.9
+Husbands_or_family_money	financing	Family_money	posnorm	101	1500
+Payed_on_farm_job	financing	Farm_job_payed	posnorm	961	1500
+Own_business_branch 	financing	Own_branch	posnorm	1000	1500
+Self-employment	financing	Self_employed	posnorm	1000	1500
+Off-farm_job 	financing	Off-Farm_job	posnorm	361	1500
+Agricultural_insurance	options	Agri_insurance	posnorm	361	1500
+State_insurance	options	State_insurance	posnorm	361	1500
+Private_insurance	options	Private_insurance	posnorm	361	1500
+Real_estate	options	Real_estate	posnorm	361	1500
+ETF	options	ETF	posnorm	361	1500
+No_sallary	financing	Default_option	posnorm	0.11	1500
+Husbands_or_family_money_2	option	Default_option	posnorm	100	1500
+Agriculatural_insurance_2	options	Default_option	posnorm	361	1500
