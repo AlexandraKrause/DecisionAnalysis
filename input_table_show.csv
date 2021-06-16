@@ -1,0 +1,15 @@
+Description;label;variable;distribution;lower ;median;upper
+Risk_of_husband_or_family_power;Percent;Husband_risk;tnorm_0_1;0,45;NA;0,5
+Risk_of_divorce;Percent;Divorce_risk;tnorm_0_1;0,2;NA;0,4
+Risk_of_death_of_husband ;Percent;Man_Death_risk;tnorm_0_1;0,01;NA;0,02
+Risk_of_bancruptcy;Percent;Bancruptcy_risk;tnorm_0_1;0,1;NA;0,11
+Risk_of_late_transfer_of_farming business ;Percent;Late_transfer_risk_obstacle;tnorm_0_1;0,45;NA;0,5
+Risk_of_no_child_care_services;Percent;Child_Elderly_risk_obstacle;tnorm_0_1;0,05;NA;0,15
+Use_child_care_options_kindergarden_nanny;requirement_for_financing;Costs_for_child_care;posnorm;40,0;NA;300,0
+Use_elderly_care_options_old_peoples_home_and_24h_care_giver;requirement_for_financing;Costs_for_elderly_care;posnorm;130,0;NA;500,1
+Own_business_branch ;financing;Own_branch;posnorm;1000,0;NA;1500,1
+Agricultural_insurance;options;Agri_insurance;const;591,94;NA;591,94
+State_insurance_with_investment;options;State_insurance2;posnorm;450,0;NA;680,0
+Husbands_or_family_money1;option;Default_option2;posnorm;50,0;NA;250,0
+Agriculatural_insurance1;options;Default_option3;const;591,94;NA;591,94
+Coefficient of variation, ratio of the standard deviation;coeff. Variation;var_CV;posnorm;5,0;NA;20,0
