@@ -9,7 +9,8 @@ Use_child_care_options_kindergarden_nanny;requirement_for_financing;Costs_for_ch
 Use_elderly_care_options_old_peoples_home_and_24h_care_giver;requirement_for_financing;Costs_for_elderly_care;posnorm;130,0;NA;500,1
 Own_business_branch ;financing;Own_branch;posnorm;1000,0;NA;1500,1
 Agricultural_insurance;options;Agri_insurance;const;591,94;NA;591,94
-State_insurance_with_investment;options;State_insurance2;posnorm;450,0;NA;680,0
+Private_insurance;options;Private_insurance;posnorm;233,0;NA;350,0
+Private_insurance_investment;options;Private_insurance_inv;posnorm;100.0;NA;150
 Husbands_or_family_money1;option;Default_option2;posnorm;50,0;NA;250,0
 Agriculatural_insurance1;options;Default_option3;const;591,94;NA;591,94
 Coefficient of variation, ratio of the standard deviation;coeff. Variation;var_CV;posnorm;5,0;NA;20,0
