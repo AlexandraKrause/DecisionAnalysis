@@ -1,22 +1,26 @@
-Description;label;variable;distribution;lower ;median;upper
+Description;label;variable;distribution;984;median;upper
 Risk_of_husband_or_family_power;Percent;Husband_risk;tnorm_0_1;0,45;NA;0,5
 Risk_of_divorce;Percent;Divorce_risk;tnorm_0_1;0,2;NA;0,4
-Risk_of_death_of_husband ;Percent;Man_Death_risk;tnorm_0_1;0,4;NA;0,8
+Risk_of_death_of_husband ;Percent;Man_Death_risk;tnorm_0_1;0,01;NA;0,02
 Risk_of_bancruptcy;Percent;Bancruptcy_risk;tnorm_0_1;0,1;NA;0,11
 Risk_of_late_transfer_of_farming business ;Percent;Late_transfer_risk_obstacle;tnorm_0_1;0,45;NA;0,5
-Risk_of_no_child_care_services;Percent;Child_Elderly_risk_obstacle;tnorm_0_1;0,1;NA;0,8
-Use_child_care_options_kindergarden;requirement_for_financing;Costs_for_child_care;posnorm;101,0;NA;500,0
-Use_elderly_care_options_old_peoples_home_and_24h_care_giver;requirement_for_financing;Costs_for_elderly_care;posnorm;101,0;NA;500,1
+Risk_of_no_child_care_services;Percent;Child_risk_obstacle;tnorm_0_1;0,05;NA;0,15
+Use_child_care_options_kindergarden_nanny;requirement_for_financing;Costs_for_child_care;posnorm;40,0;NA;300,0
+Use_elderly_care_options_old_peoples_home_and_24h_care_giver;requirement_for_financing;Costs_for_elderly_care;posnorm;130,0;NA;500,1
 Husbands_or_family_money;financing;Family_money;posnorm;50,0;NA;500,2
 Payed_on_farm_job;financing;Farm_job_payed;posnorm;961,0;NA;1300,0
-Own_business_branch ;financing;Own_branch;posnorm;100,0;NA;1300,1
+Own_business_branch ;financing;Own_branch;posnorm;1000,0;NA;1500,1
 Self-employment;financing;Self_employed;posnorm;100,0;NA;1300,2
 Off-farm_job ;financing;Off-Farm_job;posnorm;100,1;NA;1300,3
-Agricultural_insurance;options;Agri_insurance;posnorm;100,2;NA;1300,4
-State_insurance_with_investment;options;State_insurance2;posnorm;100,3;NA;1300,5
+Agricultural_insurance;options;Agri_insurance;const;591,94;NA;591,94
+Agricultural_insurance_investment;options;Agri_insurance_inv;const;200,0;NA;200,0
+Private_insurance;options;Private_insurance;posnorm;233,0;NA;350,0
+Private_insurance_investment;options;Private_insurance_inv;posnorm;100,0;NA;150,0
+State_insurance_investment;options;State_insurance_inv;posnorm;100,3;NA;1300,5
 State_insurance;options;State_insurance;posnorm;100,4;NA;1300,6
-Private_insurance;options;Private_insurance;posnorm;100,5;NA;1300,7
 ETF;options;ETF;posnorm;100,6;NA;1300,8
-Husbands_or_family_money1;option;Default_option2;posnorm;100,7;NA;1300,9
-Agriculatural_insurance1;options;Default_option3;posnorm;100,8;NA;130,10
-Coefficient of variation, ratio of the standard deviation;coeff. Variation;var_CV;posnorm;5,0;NA;20,0
+Husbands_or_family_money1;option;Default_option2;posnorm;50,0;NA;250,0
+Agriculatural_insurance1;options;Default_option3;const;591,94;NA;591,94
+Coefficient of variation, ratio of the standard deviation for 40 years paying pension  (death at 82);coeff. Variation;var_CV_40;const;396,0;NA;396,0
+Coefficient of variation, ratio of the standard deviation for 17 years getting pension (death at 82);coeff. Variation;var_CV_17;const;204,0;NA;204,0
+Coefficient of variation, ratio of the standard deviation for 17 years getting pension (death at 82);coeff. Variation;var_CV_82;const;984,0;NA;984,0

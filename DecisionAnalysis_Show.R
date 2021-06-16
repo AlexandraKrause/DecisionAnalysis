@@ -28,10 +28,14 @@ decision_function1 <- function(x, varnames){
   ####vvs####  
   # use vv() to add variability to the 
   # random draws of own business branch and of private insurance
-  # over a 65 year simulation 
+  # over a 82 year simulation (estimated death)
   # 40 years insurance, paying 12 month a year =480
-  # 82 years alive after paying 480 euro/ month:insurance
-  # 33 years, 12 month:396
+  # 82 years alive after paying 480 euro/ month:insurance (82-25-40=17)
+  # 17 years, 12 month:204
+  # Age of retirenment: 65
+  # marriage age 25
+  
+
   Own_business_branch <- vv(var_mean = Own_branch, 
                             var_CV = var_CV, 
                             n = 480)

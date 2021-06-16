@@ -35,21 +35,53 @@ decision_function <- function(x, varnames){
   # random draws of own business branch and of 
   #state insurance, private insurance, ETF
   # over a 65 year simulation 
-  #65 jahre rente mal 12 Monate=780
-  Own_business_branch <- vv(var_mean = Own_branch, 
-               var_CV = var_CV, 
-               n = 780)
+  #  # over a 82 year simulation (estimated death)
+  # 40 years insurance, paying 12 month a year =480
+  # 82 years alive after paying 480 euro/ month:insurance (82-25-40=17)
+  # ETF: 82 x 12= 984
+  # 17 years, 12 month:204
+  # Age of retirenment: 65
+  # marriage age 25
   
-#  ETF <- vv(var_mean = ETF, 
-#               var_CV = var_CV, 
-#               n = 780)    
+
+  Own_business_branch <- vv(var_mean = Own_branch, 
+               var_CV_40 = var_CV_40, 
+               n = 396)
+  
+  
+  Off-Farm_job <- vv(var_mean = Off-Farm_job, 
+                     var_CV_40 = var_CV_40, 
+                     n = 396)
+  
+  Family_money <- vv(var_mean = Family_money, 
+                    var_CV_40 = var_CV_40, 
+                    n = 396)
+  
+  
+  Farm_job_payed <- vv(var_mean = Farm_job_payed, 
+                    var_CV_40 = var_CV_40, 
+                    n = 396)
+  
+  ETF <- vv(var_mean = ETF, 
+               var_CV_82 = var_CV_82, 
+               n = 984)    
   
   Private_insurance <- vv(var_mean = Private_insurance, 
-               var_CV = var_CV, 
-               n = 780)
+               var_CV_40 = var_CV_40, 
+               n = 396)
 
+  Private_insurance_inv <- vv(var_mean = Private_insurance_inv, 
+                              var_CV_17 = var_CV_17, 
+                              n = 204)
   
+  State_insurance <- vv(var_mean = State_insurance, 
+                           var_CV_17 = var_CV_17, 
+                           n = 204)
   
+  State_insurance_inv <- vv(var_mean = State_insurance_inv, 
+                                  var_CV_17 = var_CV_17, 
+                                  n = 204)
+
 #### calculate ex-ante risks ####
     Husband_risk <-
     chance_event(Husband_risk, 1, 0, n = 1)
@@ -60,78 +92,117 @@ decision_function <- function(x, varnames){
     Man_Death_risk <-
     chance_event(Man_Death_risk, 1, 0, n = 1)
     
-    Bancruptcy_risk<-
+    Bancruptcy_risk <-
     chance_event(Man_Death_risk, 1, 0, n = 1)
     
-    Late_transfer_risk_obstacle<-
+    Late_transfer_risk_obstacle <-
       chance_event(Man_Death_risk, 1, 0, n = 1)
     
-    Child_Elderly_risk_obstacle<-
+    Child_Elderly_risk_obstacle <-
       chance_event(Man_Death_risk, 1, 0, n = 1)
     
 
 ####add variability####
     
     
-    ####start with own business branch####
-    # adjust branches for probability that other branches before were not "taken"
-    #65 jahre rente mal 12 Monate=780
+####start with own business branch####
+# adjust branches for probability that other branches before were not "taken"
+#65 jahre rente mal 12 Monate=780
     
-    # use chance_event() 
-    # assuming  0 Own_business_branch  at all in the event of no child care option
-    Costs_for_child_care_adjusted_Own_business_branch <- chance_event(chance = Costs_for_child_care, 
-                                                                      value_if = 0,
-                                                                      value_if_not = Own_branch,
-                                                                      n = 780)
+# use chance_event() 
+# assuming  0 Own_business_branch  at all in the event of no child care option
+Costs_for_child_care_adjusted_Own_business_branch <- chance_event(chance = Costs_for_child_care, 
+                                                                  value_if = 0,
+                                                                  value_if_not = Own_branch,
+                                                                  n = var_CV_40)
+# use chance_event() 
+# assuming  0 Own_business_branch  at all in the event of no elderly care option
+Costs_for_elderly_care_adjusted_Own_business_branch <- chance_event(chance = Costs_for_elderly_care, 
+                                                                    value_if = 0,
+                                                                    value_if_not = Own_branch,
+                                                                    n = var_CV_40)
+    
 
     
-    # use chance_event() 
-    # assuming  0 Own_business_branch  at all in the event of no elderly care option
-    Costs_for_elderly_care_adjusted_Own_business_branch <- chance_event(chance = Costs_for_elderly_care, 
-                                                                        value_if = 0,
-                                                                        value_if_not = Own_branch,
-                                                                        n = 780)
-    
-    # calculate pension without own business branch
-    profit_without_Own_business_branch <- Default_option3 + Default_option2
-    profit_with_Own_business_branch <- Own_branch
-    
-    # calculate pension with own business branch
-#    profit_wit_Own_business_branch<- Agricultural_insurance
+# calculate pension without own business branch
+profit_without_Own_business_branch <- Default_option3 + Default_option2
+profit_with_Own_business_branch <- Own_branch
     
     
-    # use 'discount' to calculate net present value 
-    # 'discount_rate' is expressed in percent
-    NPV_no_branch <- discount( profit_without_Own_business_branch, discount_rate = 5, calculate_NPV = TRUE)    
-    NPV_branch <- discount(profit_with_Own_business_branch, discount_rate = 5, calculate_NPV = TRUE)
+# use 'discount' to calculate net present value 
+# 'discount_rate' is expressed in percent
+NPV_no_branch <- discount( profit_without_Own_business_branch, discount_rate = 5, calculate_NPV = TRUE)    
+NPV_branch <- discount(profit_with_Own_business_branch, discount_rate = 5, calculate_NPV = TRUE)
     
-    # calculate the overall NPV of the decision (do - don't do)
-    NPV_decision <- NPV_branch-NPV_no_branch
+# calculate the overall NPV of the decision (do - don't do)
+NPV_decision <- NPV_branch-NPV_no_branch
     
-    return(list(NPV_no_branch =  NPV_no_branch,
-                NPV_branch =  NPV_branch, 
-                NPV_decision = NPV_decision))
+return(list(NPV_no_branch =  NPV_no_branch,
+            NPV_branch =  NPV_branch, 
+            NPV_decision = NPV_decision))
 
+    #### then private insurance####
     
-    # calculate pension without private insurance
-    profit_without_private_insurance <- Default_option3 + Default_option2
+# calculate pension without private insurance
+profit_without_private_insurance <- Default_option3 + Default_option2
     
-    # calculate pension with private insurance
-    profit_with_private_insurance <- Private_insurance
+# calculate pension with private insurance
+profit_with_private_insurance <- Private_insurance
     
-    # use 'discount' to calculate net present value 
-    # 'discount_rate' is expressed in percent
-    NPV_no_pi <- discount(profit_without_private_insurance, discount_rate = 5, calculate_NPV = TRUE)
-    NPV_pi <- discount(profit_with_private_insurance, discount_rate = 5, calculate_NPV = TRUE)
+# use 'discount' to calculate net present value 
+# 'discount_rate' is expressed in percent
+NPV_no_pi <- discount(profit_without_private_insurance, discount_rate = 5, calculate_NPV = TRUE)
+NPV_pi <- discount(profit_with_private_insurance, discount_rate = 5, calculate_NPV = TRUE)
     
-    # calculate the overall NPV of the decision (do - don't do)
-    NPV_decision <- NPVpi-NPV_no_pi
+# calculate the overall NPV of the decision (do - don't do)
+NPV_decision <- NPV_pi-NPV_no_pi
     
-    return(list(NPV_no_pi =  NPV_no_pi,
-                NPV_pi =  NPV_pi, 
-                NPV_decision = NPV_decision))
+return(list(NPV_no_pi =  NPV_no_pi,
+            NPV_pi =  NPV_pi, 
+            NPV_decision = NPV_decision))
+
+
+#### then state insurance####
+    
+# calculate pension without state insurance
+profit_without_State_insurance <- Default_option3 + Default_option2
+
+# calculate pension with state insurance
+profit_with_State_insurance <- State_insurance
+
+# use 'discount' to calculate net present value 
+# 'discount_rate' is expressed in percent
+NPV_no_si <- discount(profit_without_State_insurance, discount_rate = 5, calculate_NPV = TRUE)
+NPV_si <- discount(profit_with_State_insurance, discount_rate = 5, calculate_NPV = TRUE)
+
+# calculate the overall NPV of the decision (do - don't do)
+NPV_decision <- NPV_si-NPV_no_si
+
+return(list(NPV_no_si =  NPV_no_si,
+            NPV_si =  NPV_si, 
+            NPV_decision = NPV_decision))
+
+
+#### then ETF ####
+
+# calculate pension without ETF
+profit_without_ETF <- Default_option3 + Default_option2
+
+# calculate pension with ETF
+profit_with_ETF <- ETF
+
+# use 'discount' to calculate net present value 
+# 'discount_rate' is expressed in percent
+NPV_no_ETF <- discount(profit_without_ETF, discount_rate = 5, calculate_NPV = TRUE)
+NPV_ETF <- discount(profit_with_ETF, discount_rate = 5, calculate_NPV = TRUE)
+
+# calculate the overall NPV of the decision (do - don't do)
+NPV_decision <- NPV_ETF-NPV_no_ETFv
+
+return(list(NPV_no_ETF =  NPV_no_ETF,
+            NPV_ETF =  NPV_ETF, 
+            NPV_decision = NPV_decision))
 }
-
 
 ####Model branches####
 # Estimate the pension without plan
