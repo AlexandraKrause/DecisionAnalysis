@@ -1,4 +1,4 @@
-Description;label;variable;distribution;984;median;upper
+Description;label;variable;distribution;lower;median;upper
 Risk_of_husband_or_family_power;Percent;Husband_risk;tnorm_0_1;0,45;NA;0,5
 Risk_of_divorce;Percent;Divorce_risk;tnorm_0_1;0,2;NA;0,4
 Risk_of_death_of_husband ;Percent;Man_Death_risk;tnorm_0_1;0,01;NA;0,02

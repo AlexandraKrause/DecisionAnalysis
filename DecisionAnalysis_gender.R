@@ -111,16 +111,18 @@ decision_function <- function(x, varnames){
     
 # use chance_event() 
 # assuming  0 Own_business_branch  at all in the event of no child care option
-Costs_for_child_care_adjusted_Own_business_branch <- chance_event(chance = Costs_for_child_care, 
-                                                                  value_if = 0,
-                                                                  value_if_not = Own_branch,
-                                                                  n = var_CV_40)
+Costs_for_child_care_adjusted_Own_business_branch <- chance_event(chance = 
+                                                          Costs_for_child_care, 
+                                                          value_if = 0,
+                                                          value_if_not = Own_branch,
+                                                          n = var_CV_40)
 # use chance_event() 
 # assuming  0 Own_business_branch  at all in the event of no elderly care option
-Costs_for_elderly_care_adjusted_Own_business_branch <- chance_event(chance = Costs_for_elderly_care, 
-                                                                    value_if = 0,
-                                                                    value_if_not = Own_branch,
-                                                                    n = var_CV_40)
+Costs_for_elderly_care_adjusted_Own_business_branch <- chance_event(chance = 
+                                                      Costs_for_elderly_care, 
+                                                      value_if = 0,
+                                                      value_if_not = Own_branch,
+                                                      n = var_CV_40)
     
 
     
@@ -131,8 +133,10 @@ profit_with_Own_business_branch <- Own_branch
     
 # use 'discount' to calculate net present value 
 # 'discount_rate' is expressed in percent
-NPV_no_branch <- discount( profit_without_Own_business_branch, discount_rate = 5, calculate_NPV = TRUE)    
-NPV_branch <- discount(profit_with_Own_business_branch, discount_rate = 5, calculate_NPV = TRUE)
+NPV_no_branch <- discount( profit_without_Own_business_branch,
+                           discount_rate = 5, calculate_NPV = TRUE)    
+NPV_branch <- discount(profit_with_Own_business_branch,
+                       discount_rate = 5, calculate_NPV = TRUE)
     
 # calculate the overall NPV of the decision (do - don't do)
 NPV_decision <- NPV_branch-NPV_no_branch
@@ -151,8 +155,10 @@ profit_with_private_insurance <- Private_insurance
     
 # use 'discount' to calculate net present value 
 # 'discount_rate' is expressed in percent
-NPV_no_pi <- discount(profit_without_private_insurance, discount_rate = 5, calculate_NPV = TRUE)
-NPV_pi <- discount(profit_with_private_insurance, discount_rate = 5, calculate_NPV = TRUE)
+NPV_no_pi <- discount(profit_without_private_insurance,
+                      discount_rate = 5, calculate_NPV = TRUE)
+NPV_pi <- discount(profit_with_private_insurance,
+                   discount_rate = 5, calculate_NPV = TRUE)
     
 # calculate the overall NPV of the decision (do - don't do)
 NPV_decision <- NPV_pi-NPV_no_pi
@@ -172,8 +178,10 @@ profit_with_State_insurance <- State_insurance
 
 # use 'discount' to calculate net present value 
 # 'discount_rate' is expressed in percent
-NPV_no_si <- discount(profit_without_State_insurance, discount_rate = 5, calculate_NPV = TRUE)
-NPV_si <- discount(profit_with_State_insurance, discount_rate = 5, calculate_NPV = TRUE)
+NPV_no_si <- discount(profit_without_State_insurance,
+                      discount_rate = 5, calculate_NPV = TRUE)
+NPV_si <- discount(profit_with_State_insurance,
+                   discount_rate = 5, calculate_NPV = TRUE)
 
 # calculate the overall NPV of the decision (do - don't do)
 NPV_decision <- NPV_si-NPV_no_si
@@ -193,8 +201,10 @@ profit_with_ETF <- ETF
 
 # use 'discount' to calculate net present value 
 # 'discount_rate' is expressed in percent
-NPV_no_ETF <- discount(profit_without_ETF, discount_rate = 5, calculate_NPV = TRUE)
-NPV_ETF <- discount(profit_with_ETF, discount_rate = 5, calculate_NPV = TRUE)
+NPV_no_ETF <- discount(profit_without_ETF,
+                       discount_rate = 5, calculate_NPV = TRUE)
+NPV_ETF <- discount(profit_with_ETF,
+                    discount_rate = 5, calculate_NPV = TRUE)
 
 # calculate the overall NPV of the decision (do - don't do)
 NPV_decision <- NPV_ETF-NPV_no_ETFv
