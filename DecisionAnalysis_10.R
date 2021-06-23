@@ -1,0 +1,168 @@
+####Seminar 10####
+
+
+####the value varier function text####
+
+
+#Many variables vary over time and it may not be desirable 
+#to ignore this variation in time series analyses.
+#The vv function produces time series that contain variation
+#from a specified mean and a desired coefficient of variation. 
+#A trend can be added to this time series.
+
+#The arguments for the vv function include:
+  
+#var_mean, which is the mean of the variable to be varied
+#var_CV, which is the desired coefficient of variation (in percent)
+#n, which is the integer; number of values to produce
+#distribution, which is the probability distribution for the introducing
+#variation. This is currently only implemented for normal distributions
+#absolute_trend, which is the absolute increment in the var_mean in each
+#time step. Defaults to NA, which means no such absolute value trend is present. If both absolute and relative trends are specified, only original means are used
+#relative_trend, which is the relative trend in the var_mean in each time step
+#(in percent). Defaults to NA, which means no such relative 
+#value trend is present. If both absolute and relative trends are specified,
+#only original means are used
+
+
+#lower_limit, which is the lowest possible value for elements of the
+#resulting vector
+#upper_limit, which is the upper possible value for elements of the
+#resulting vector
+
+#Note that only one type of trend can be specified.
+#If neither of the trend parameters are NA, the function uses only the original
+#means
+
+
+
+####Part 1 value varier function####
+#Note that only one type of trend can be specified. If neither
+#of the trend parameters are NA, the function uses only the original means
+# function produces a vector of n numeric values, 
+#representing a variable time series, which initially has the mean var_mean,
+#and then increases according to the specified trends. Variation is determined
+#by the given coefficient of variation var_CV.
+#Create a vector with the vv function and plot with the base R plot function.
+
+valvar <- vv(var_mean = 100, 
+             var_CV = 5, 
+             n = 40)
+
+plot(valvar)
+#Use the absolute_trend argument and plot with the base R plot function.
+valvar <- vv(var_mean = 50, 
+             var_CV = 10, 
+             n = 30, 
+             absolute_trend = 10)
+
+plot(valvar)
+#Use the relative_trend argument and plot with the base R plot function.
+
+valvar <- vv(var_mean = 100, 
+             var_CV = 5, 
+             n = 40, 
+             relative_trend = 5)
+
+plot(valvar)
+
+####Simulate occurrence of random events text####
+
+#In many simulations, certain events can either occur or not,
+#and values for dependent variables can depend on which of the cases occurs.
+#This function randomly simulates whether events occur and returns output
+#values accordingly. The outputs can be single values or series of values,
+#with the option of introducing artificial variation into this dataset.
+
+#The arguments for the chance_event function include:
+  
+#chance, which is the probability that the risky event will occur
+#(between 0 and 1)
+#value_if, which is the output value in case the event occurs.
+#This can be either a single numeric value or a numeric vector. Defaults to 1.
+#value_if_not, which is the output value in case the event does not occur.
+#This can be either a single numeric value or a numeric vector.
+#If it is a vector, it must have the same length as value_if n, 
+#which is the number of times the risky event is simulated. 
+#This is ignored if length(value_if)>1.
+#CV_if, which is the coefficient of variation for introducing randomness 
+#into the value_if data set. This defaults to 0 for no artificial variation. 
+#See documentation for the vv function for details. 
+#CV_if_not, which is the coefficient of variation for introducing randomness
+#into the value_if_not data set. This defaults to the value for CV_if.
+#See documentation for the vv function for details.
+#one_draw, which is the boolean coefficient indicating if event occurrence is
+#determined only once (TRUE) with results applying to all elements of the
+#results vector, or if event occurrence is determined independently for 
+#each element (FALSE is the default).
+
+#### Part 2 Simulate occurrence of random events####
+
+#The chance_event function provides a numeric vector of length n,
+#containing outputs of a probabilistic simulation that assigns value_if
+#if the event occurs, or value_if_not if is does not occur
+#(both optionally with artificial variation).
+chancevar <- chance_event(chance = 0.25, 
+                          value_if = 3, 
+                          n = 20)
+
+plot(chancevar)
+#Use the value_if_not and CV_if arguments.
+hancevar <- chance_event(chance = 0.1,
+                         value_if = 5,
+                         value_if_not = 20,
+                         n = 100,
+                         CV_if = 10)
+
+plot(chancevar)
+
+####Part 3 Gompertz function yield prediction for perennials####
+
+#Gompertz function yield prediction for perennials
+
+#Yields of trees or other perennial plants have to be simulated in order to
+#predict the outcomes of many interventions. Unlike annual crops, however,
+#trees normally yield nothing for a few years after planting, following which
+#yields gradually increase until they reach a tree-specific maximum.
+#This is simulated with this function, which assumes that a Gompertz function
+#is a good way to describe this (based on the general shape of the curve,
+#not on extensive research…). The function assumes that yields remain at
+#the maximum level, once this is reached. For long simulations,
+#this may not be a valid assumption! The function parameters are estimated based
+#on yield estimates for two points in time, which the user can specify.
+#They are described by a year number and by a percentage of the maximum
+#yield that is attained at that time.
+
+#The arguments for the gompertz_yield function include:
+  
+#max_harvest, which is the maximum harvest from the tree
+#(in number of fruits, kg or other units)
+#time_to_first_yield_estimate, which is the year (or other time unit) number,
+#for which the first yield estimate is provided by first_yield_estimate_percent
+#time_to_second_yield_estimate, which is the year (or other time unit) number,
+#for which the second yield estimate is provided by second_yield_estimate_percent
+#first_yield_estimate_percent percentage of the maximum yield that is
+#attained in the year (or other time unit) given by time_to_first_yield_estimate
+#second_yield_estimate_percent percentage of the maximum yield that is
+#attained in the year (or other time unit) given by time_to_second_yield_estimate
+#n_years, which is the number of years to run the simulation
+#var_CV, which is the coefficient indicating how much variation should be
+#introduced into the time series. If this is one numeric value,
+#then this value is used for all variables. The default is 0,
+#for a time series with no artificially introduced variation.
+#See description of the vv function for more details on this.
+#no_yield_before_first_estimate, which is the boolean variable 
+#indicating whether yields before the time unit indicated by
+#time_to_first_yield_estimateshould be 0.
+
+#The function provides a vector of n_years numeric values,
+#describing the simulated yield of the perennial. This starts at 0 and,
+
+#if the simulation runs for a sufficient number of years, approaches max_harvest.
+#If var_CV>0, this time series includes artificial variation.
+gompertz_yield(max_harvest = 500,
+               time_to_first_yield_estimate = 5,
+               first_yield_estimate_percent = 10,
+               time_to_second_yield_estimate = 10,
+               second_yield_estimate_percent = 100,
+               n_years = 30)
