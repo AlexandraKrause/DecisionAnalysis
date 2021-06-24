@@ -1,5 +1,11 @@
 ####Seminar 10####
 
+library(decisionSupport)
+library (DiagrammeR)
+library(tidyverse)
+library(ggplot2)
+library(plyr)
+library(dplyr)
 
 ####the value varier function text####
 
@@ -18,7 +24,8 @@
 #distribution, which is the probability distribution for the introducing
 #variation. This is currently only implemented for normal distributions
 #absolute_trend, which is the absolute increment in the var_mean in each
-#time step. Defaults to NA, which means no such absolute value trend is present. If both absolute and relative trends are specified, only original means are used
+#time step. Defaults to NA, which means no such absolute value trend is present.
+#If both absolute and relative trends are specified, only original means are used
 #relative_trend, which is the relative trend in the var_mean in each time step
 #(in percent). Defaults to NA, which means no such relative 
 #value trend is present. If both absolute and relative trends are specified,
@@ -108,7 +115,7 @@ chancevar <- chance_event(chance = 0.25,
 
 plot(chancevar)
 #Use the value_if_not and CV_if arguments.
-hancevar <- chance_event(chance = 0.1,
+chancevar <- chance_event(chance = 0.1,
                          value_if = 5,
                          value_if_not = 20,
                          n = 100,
