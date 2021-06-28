@@ -5,29 +5,12 @@ library(tidyverse)
 library(ggplot2)
 library(plyr)
 library(dplyr)
-#questions: child caree in risks and(!) if statements? doubled? easier option?
-#die kosten auch in die tabelle mit werten schreiben, obwohl in R implementiert? einfachere mgl.?
-# kann man die kosten vereinfachen und in die anderen for-schleifen einfügen?:
-#ETF_costs<-TRUE
-#ETF_costs =200
-#das ist nicht notwendig, würde den code aber hübscher machen
-#die ersten calcs weglöschen? muss noch ausprobieren
-#no_plan klappt nicht
-#default options stehen bestimmt überall doppelt drin
-
-
-
-#was noch zu tun wäre:
-#bei den costs put together für jede variante einzeln einfügen
-#sowas:
-#Overall_benefits<- Family_money+ Farm_job_payed + Own_branch + Off_Farm_job + Agri_insurance + Private_insurance +State_insurance + ETF + Mix
-
-#Overall_benefits_no_plan<-Default_option_2 + Default_option_3
-#für overall costs und overall benefits
 
 ####first step:get data####
 
-input_table_gender <-read.csv2("./input_table_gender.csv", dec = ",")
+#input_table_gender <-read.csv2("./input_table_gender.csv", dec = ",")
+input_table_gender <-read.csv2("./input_table_gender_4th.csv", dec = ",")
+
 
 input_table_gender <- input_table_gender %>% 
   mutate(Description = as.character(Description),
@@ -46,11 +29,13 @@ str(input_table_gender)
 # Way 1 = common and own branch
 # Way 2 = common and Job away from farm 
 # Way 3 = common and Job away from farm + 50 Euro mehr insurance + 20 Euro mehr bezahlt
-# Way 4 = common and Payment of Wife 
-# Way 5 = common and Family money
+# Way 4 = common and Family money to buy pension options
+# Way 5 = common and Payment of Wife for farm work
 # Way 6 = common and Own branch + all other thing
 
-Way <- 1
+#Way 5 and 6 are still missing
+
+Way <- 2
 
 
 decision_function <- function(x, varnames){
@@ -185,11 +170,11 @@ decision_function <- function(x, varnames){
   
   if(Way == 2){
     
-    profit_without_Own_business_branch <- (Default_option_3 - Default_option_3_costs) + Default_option_2
+    profit_without_Job_away_of_farm <- (Default_option_3 - Default_option_3_costs) + Default_option_2
     
     profit_with_Job_away_of_farm <- (Off_Farm_job + State_insurance - State_insurance_costs - Costs_for_child_care - Costs_for_elderly_care)
     
-    NPV_no_branch <- discount(profit_without_Own_business_branch,
+    NPV_no_branch <- discount(profit_without_Job_away_of_farm,
                               discount_rate = 5, calculate_NPV = TRUE)  
     
     NPV_branch <- discount(profit_with_Job_away_of_farm,
