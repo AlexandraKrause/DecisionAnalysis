@@ -10,9 +10,9 @@ Husbands_or_family_money;financing;Family_money;posnorm;50,0;NA;300,0
 Payed_on_farm_job;financing;Farm_job_payed;posnorm;1500,0;NA;1700,0
 Own_business_branch ;financing;Own_branch;posnorm;1000,0;NA;1500,0
 Off_farm_job ;financing;Off_Farm_job;posnorm;2200,0;NA;2400,0
-Agricultural_insurance;options;Agri_insurance;posnorm;591,94;NA;591,94
+Agricultural_insurance;options;Agri_insurance;const;591,94;NA;591,94
 Agricultural_insurance_investment;options;Agri_insurance_inv;const;241,88;NA;241,88
-Private_insurance;options;Private_insurance;const;412,0;NA;875,0
+Private_insurance;options;Private_insurance;posnorm;412,0;NA;875,0
 Private_insurance_investment;options;Private_insurance_inv;posnorm;113,0;NA;240,0
 State_insurance_investment;options;State_insurance_inv;posnorm;140,0;NA;220,0
 State_insurance;options;State_insurance;posnorm;550,0;NA;1100,0

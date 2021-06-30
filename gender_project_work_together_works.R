@@ -222,7 +222,8 @@ decision_function <- function(x, varnames){
     
     return(list(NPV_no_branch =  NPV_no_branch,
                 NPV_branch =  NPV_branch, 
-                NPV_decision = NPV_decision))
+                NPV_decision = NPV_decision, 
+                risk))
   }
   
 }
@@ -238,7 +239,7 @@ mcSimulation_results_way1 <- decisionSupport::mcSimulation(
 mcSimulation_results_way2 <- decisionSupport::mcSimulation(
   estimate = decisionSupport::as.estimate(input_table_gender),
   model_function = decision_function,
-  numberOfModelRuns = 200,
+  numberOfModelRuns = 10000,
   functionSyntax = "plainNames"
 )
 
