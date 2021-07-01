@@ -1,15 +1,26 @@
 library (DiagrammeR)
+library(readr)
+library(decisionSupport)
+library (DiagrammeR)
+library(tidyverse)
+library(ggplot2)
+library(plyr)
+library(dplyr)
 
 
 # Building the model
 
 
-input_estimates <- data.frame(variable = c("Yield", "Market_price", "Substrate_Cost", "Peat_cost"),
+input_estimates <- data.frame(variable = c("Yield", "Market_price",
+                                           "Substrate_Cost", "Peat_cost"),
                               lower = c(200, 0.5,0.32,0.45),
                               median = NA,
                               upper = c(350, 0.8,0.34,0.4),
-                              distribution = c("posnorm", "posnorm", "const","const"),
-                              label = c("Yield (g/Salat)", "Price (EU/gramm)", "Cost for food waste/Salat", "cost for substrate/Salat"),
+                              distribution = c("posnorm", "posnorm", "const",
+                                               "const"),
+                              label = c("Yield (g/Salat)", "Price (EU/gramm)",
+                                        "Cost for food waste/Salat",
+                                        "Cost for substrate/Salat"),
                               Description = c("Yield in kg per Salat",
                                               "Price in Euro per Salat",
                                               "Cost for food waste/Salat", 
