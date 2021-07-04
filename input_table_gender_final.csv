@@ -1,0 +1,26 @@
+Description;label;variable;distribution;lower;median;upper
+Percentage risk that in-laws/husband overrule daughter in-law/wife;Risk in-laws decide (%);Husband_risk;tnorm_0_1;0,45;NA;0,5
+Percentage risk that the marriage will be divorced at some point;Risk of divorce (%);Divorce_risk;tnorm_0_1;0,2;NA;0,4
+Percentage risk that farmer husband has a fatal accident at work;Risk of fatal accident of husband (%);Man_Death_risk;tnorm_0_1;0,0001;NA;0,0002
+Percentage risk that farm goes bancrupt;Risk of farm bancruptcy (%);Bancruptcy_risk;tnorm_0_1;0,01;NA;0,017
+Child care investment cost (for 6 years) as requirement to work;Needed initial investment costs (€/month) ;Costs_for_child_care;posnorm;40,0;NA;300,0
+Elderly care investment cost (for 10 years) as requirement to work;Needed investment costs (€/month);Costs_for_elderly_care;posnorm;130,0;NA;3000,0
+Using family/husbands monetary support to pay into retirement plan ;Family money (€/month);Family_money;posnorm;50,0;NA;300,0
+Officially working on the family farm to pay into retirement plan;Salary  on farm job (€/month) pre-tax income;Farm_job_payed;posnorm;1500,0;NA;1700,0
+Establishing own farmshop on the farm to pay into retirement plan;Salary own farmshop (€/month) pre-tax income;Own_branch;posnorm;1000,0;NA;1500,0
+Working off-farm as a gardener to pay into retirement plan;Salary off farm job (€/month) pre-tax income;Off_Farm_job;posnorm;2200,0;NA;2400,0
+Agricultural insurance payout for 17 years;Monthly pension (€/month);Agri_insurance;const;591,94;NA;591,94
+Agricultural insurance investment for 40 years (5 years as MIFA + 35 years as full member);Monthly payment into retirement (€/month);Agri_insurance_inv;const;241,88;NA;241,88
+Private insurance payout for 17 years;Monthly pension (€/month) ;Private_insurance;posnorm;327,0;NA;580,0
+Private insurance investment for 40 years (10% of net income);Monthly payment into retirement (€/month);Private_insurance_inv;posnorm;102,0;NA;159,0
+State insurance payout for 17 years;Monthly pension (€/month);State_insurance;posnorm;630,0;NA;940,0
+State insurance investment for 40 years ;Monthly payment into retirement (€/month);State_insurance_inv;posnorm;121,0;NA;214,0
+ETF payout for 17 years;Monthly pension (€/month);ETF;posnorm;920,0;NA;1450,0
+ETF investment for 40 years;Monthly payment into retirement (€/month);ETF_inv;posnorm;102,0;NA;159,0
+Mixing ETF and private insurance payout for 17 years  (10% of net income divided into 5% ETF anf 5% private insurance);Monthly pension (€/month);Mix;posnorm;650,0;NA;1025,0
+Mixing ETF and private insurance investment for 40 years (10% of net income divided into 5% ETF anf 5% private insurance);Monthly payment into retirement (€/month);Mix_inv;posnorm;102,0;NA;159,0
+Mandatory agricultural insurance (when not having a job) investment for 40 years (paid by in-laws/husband);Mandatory payment into retirement (€/month);Default_option;const;241,88;NA;241,88
+Coefficient of variation, ratio of the standard deviation for 40 years paying pension  (death at 82);coeff. Variation (months);var_cv_40;const;480,0;NA;480,0
+Coefficient of variation, ratio of the standard deviation for 17 years getting pension (death at 82);coeff. Variation (months);var_cv_17;const;204,0;NA;204,0
+Coefficient of variation, ratio of the standard deviation for 6 years paying child care (primary school at 6);coeff. Variation (months);var_cv_6;const;72,0;NA;72,0
+Coefficient of variation, ratio of the standard deviation for 10 years paying elderly care (in-laws);coeff. Variation (months);var_cv_10;const;120,0;NA;120,0
