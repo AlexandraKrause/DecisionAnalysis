@@ -2,11 +2,14 @@ Description;label;variable;distribution;lower;median;upper
 Percentage risk that in-laws/husband overrule daughter in-law/wife;Risk in-laws decide (%);Husband_risk;tnorm_0_1;0,45;NA;0,5
 Percentage risk that the marriage will be divorced at some point;Risk of divorce (%);Divorce_risk;tnorm_0_1;0,2;NA;0,4
 Percentage risk that farmer husband has a fatal accident at work;Risk of fatal accident of husband (%);Man_Death_risk;tnorm_0_1;0,0001;NA;0,0002
+percentage risk;Risk of needing child and eldery care (%);child_elderly_risk;tnorm_0_2;0,0002;NA;0,0003
 Percentage risk that farm goes bancrupt;Risk of farm bancruptcy (%);Bancruptcy_risk;tnorm_0_1;0,01;NA;0,017
 Child care investment cost (for 6 years) as requirement to work;Needed initial investment costs (€/month) ;Costs_for_child_care;posnorm;40,0;NA;300,0
 Elderly care investment cost (for 10 years) as requirement to work;Needed investment costs (€/month);Costs_for_elderly_care;posnorm;130,0;NA;3000,0
 Using family/husbands monetary support to pay into retirement plan ;Family money (€/month);Family_money;posnorm;50,0;NA;300,0
 Officially working on the family farm to pay into retirement plan;Salary  on farm job (€/month) pre-tax income;Farm_job_payed;posnorm;1500,0;NA;1700,0
+;;Own_brach3;posnorm;130,0;NA;3000,0
+bla;bla;Own_branch2;posnorm;40,0;NA;300,0
 Establishing own farmshop on the farm to pay into retirement plan;Salary own farmshop (€/month) pre-tax income;Own_branch;posnorm;1000,0;NA;1500,0
 Working off-farm as a gardener to pay into retirement plan;Salary off farm job (€/month) pre-tax income;Off_Farm_job;posnorm;2200,0;NA;2400,0
 Agricultural insurance payout for 17 years;Monthly pension (€/month);Agri_insurance;const;591,94;NA;591,94

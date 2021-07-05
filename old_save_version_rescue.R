@@ -6,6 +6,31 @@ library(ggplot2)
 library(plyr)
 library(dplyr)
 
+
+
+#install.packages (pls_result)
+
+
+#thinking about cost problem:
+#nicht vv funktion für einzelne jahre, but einen profit für lower boundary und einen für upper. diesen variieren über vv frü anzahl der jahre variieren lassen
+# diese diskontieren und dann zeitreihe von diskontierten werten bekommen
+
+
+#kosten prolongieren bis renetneintritt, dann diskontieren für bestimmten zeitpunkt: alter 82 zb
+# die indikatoren prolongieren zb 40 jahre 
+
+
+#durchschnittliche rentenkosten prolongieren: was rente pro jahr kostet wenn mit 25
+#einzahlen.the pension we get minus this mean prolongierte rentenkosten aus den 40 jahren zuvor
+#4 zahlen: revenue, ertrag den ich aus rente bekomme. und einen kostenwert, der vorher prolongiert werden muss.
+#prolongierter lower und upper boundary. abziehen, damit 1 profit. von vv überletzte 17 jahre prolongieren
+
+
+
+
+
+
+
 #notes. job on farm no child and elderly care? i mean, money from family for retirement is s.th. else.
 #note!!!!!pls with post hoc might not make sense for us!############################################
 
@@ -37,67 +62,67 @@ str(input_table_gender)
 # Way 5 = common and Payment of wife (on farm job)
 # Way 6 = common and Own branch + all other thing (ETF,Private insurance and Mix)
 
-Way <- 2
+Way <- 1
 
 
 decision_function <- function(x, varnames){
   
   Default_option <- vv(var_mean = Default_option,
                          var_CV = var_cv_40, 
-                         n = 40 )
+                         n = 480 )
 
   #Own_business_brach:
   
   Own_branch <- vv(var_mean = Own_branch, 
                             var_CV = var_cv_40, 
-                            n = 40)
+                            n = 480)
   
   Off_Farm_job <- vv(var_mean = Off_Farm_job, 
                      var_CV = var_cv_40, 
-                     n = 40)
+                     n = 480)
   
   
   Costs_for_child_care <- vv(var_mean = Costs_for_child_care, 
                              var_CV = var_cv_6, 
-                             n = 6)
+                             n = 72)
   
   Costs_for_elderly_care <- vv(var_mean = Costs_for_elderly_care, 
                                var_CV = var_cv_10, 
-                               n = 10)
+                               n = 120)
   
   State_insurance <- vv(var_mean = State_insurance, 
                         var_CV = var_cv_17, 
-                        n = 17)
+                        n = 184)
   
   State_insurance_inv <- vv(var_mean = State_insurance_inv, 
                               var_CV = var_cv_40, 
-                              n = 40)
+                              n = 480)
   
   Family_money <- vv(var_mean = Family_money, 
                      var_CV = var_cv_40, 
-                     n = 40)
+                     n = 480)
   
   Off_Farm_job<- vv(var_mean = Off_Farm_job, 
                        var_CV = var_cv_40, 
-                       n = 40)
+                       n = 480)
   
   
   Agri_insurance <- vv(var_mean = Agri_insurance, 
                        var_CV = var_cv_17, 
-                       n = 17)
+                       n = 184)
   
   Agri_insurance_inv <-  vv(var_mean = Agri_insurance_inv, 
                               var_CV = var_cv_40, 
-                              n = 40)
+                              n = 480)
   
   
   ETF <- vv(var_mean = ETF, 
             var_CV = var_cv_17, 
-            n = 17)
+            n = 184)
   
   ETF_inv <- vv(var_mean = ETF_inv, 
                   var_CV = var_cv_40, 
-                  n = 40)
+                  n = 480)
   
   Mix <- vv(var_mean = Mix, 
             var_CV = var_cv_17, 
@@ -105,7 +130,7 @@ decision_function <- function(x, varnames){
   
   Mix_inv <- vv(var_mean = Mix_inv, 
                   var_CV = var_cv_40, 
-                  n = 40)
+                  n = 480)
   
   #### calculate ex-ante risks ####
   Husband_risk <-
@@ -132,7 +157,7 @@ decision_function <- function(x, varnames){
     
     profit_Default <- ((Agri_insurance - Agri_insurance_inv) + Default_option)* (1-Man_Death_risk * Divorce_risk * Bancruptcy_risk)
     
-    profit_with_Own_business_branch <- (Own_branch + Agri_insurance - Agri_insurance_inv - ((Costs_for_child_care - Costs_for_elderly_care) * (1-Child_Elderly_risk_obstacle))) * (1- Husband_risk  * Bancruptcy_risk * Divorce_risk)
+    profit_with_Own_business_branch <- (Own_branch2 + Own_branch3 + Agri_insurance - Agri_insurance_inv - (Costs_for_child_care - Costs_for_elderly_care)) * (1- Husband_risk  * Bancruptcy_risk * Divorce_risk)
     
     
     NPV_no_branch <- discount(profit_Default,
@@ -259,10 +284,27 @@ if(Way == 5){
               NPV_branch =  NPV_branch, 
               NPV_decision = NPV_decision,
               Cashflow_decision_gender =  profit_with_On_Farm_Job  - profit_Default))
-}
   
-
+  
+  plot_cashflow(mcSimulation_object_way1 = predictionProfit1,
+                cashflow_var_name = "Cashflow_decision_gender",
+                x_axis_name = "Years with intervention",
+                y_axis_name = "Annual cashflow in USD",
+                color_25_75 = "green4", color_5_95 = "green1",
+                color_median = "red")
+  
+  ####Plot the cashflow####
+  #with panels to compare the cashflow distribution over time for
+  #multiple decision options:
+  variable = c("revenue_option1", "costs_option1", "n_years", 
+               "revenue_option2", "costs_option2")
+  distribution = c("norm", "norm", "const", "norm", "norm")
+  lower = c(10000,  5000, 10, 8000,  500)
+  upper = c(100000, 50000, 10, 80000,  30000)
+  
+  costBenefitEstimate <- as.estimate(variable, distribution, lower, upper)
 }
+}  
 
 mcSimulation_results_way1 <- decisionSupport::mcSimulation(
   estimate = decisionSupport::as.estimate(input_table_gender),
@@ -299,6 +341,22 @@ mcSimulation_results_way5 <- decisionSupport::mcSimulation(
   functionSyntax = "plainNames"
 )
 
+#Plot Net Present Value (NPV) distributions
+
+#We can use the plot_distributions() function to produce 
+#one of the several plotting options for distribution outputs.
+#This shows us an overlay of the full results of the 
+#Monte Carlo model of the decision options, 
+#i.e. the expected NPV if we choose to do the
+#intervention Interv_NPV or not do the intervention NO_Interv_NPV.
+
+#Here we show the results of a Monte Carlo simulation 
+#(200 model runs) for 
+#estimating the comparative profits with and without hail nets.
+
+#Here we show the results of a Monte Carlo simulation (200 model runs) for
+#estimating the comparative profits with and without hail nets.
+
 decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results_way1, 
                                     vars = c("NPV_no_branch", "NPV_branch"),
                                     method = 'smooth_simple_overlay', 
@@ -319,27 +377,8 @@ decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results_w
                                     vars = c("NPV_no_branch", "NPV_branch"),
                                     method = 'smooth_simple_overlay', 
                                     base_size = 7)
+#############################################################################################
 
-
-#Plot Net Present Value (NPV) distributions
-
-#We can use the plot_distributions() function to produce 
-#one of the several plotting options for distribution outputs.
-#This shows us an overlay of the full results of the 
-#Monte Carlo model of the decision options, 
-#i.e. the expected NPV if we choose to do the
-#intervention Interv_NPV or not do the intervention NO_Interv_NPV.
-
-#Here we show the results of a Monte Carlo simulation 
-#(200 model runs) for 
-#estimating the comparative profits with and without hail nets.
-
-#Here we show the results of a Monte Carlo simulation (200 model runs) for
-#estimating the comparative profits with and without hail nets.
-plot_distributions(mcSimulation_object = mcSimulation_results, 
-                   vars = c("NPV_no_branch", "NPV_branch"),
-                   method = 'smooth_simple_overlay', 
-                   base_size = 7)
 
 # boxplots
 
@@ -351,7 +390,7 @@ plot_distributions(mcSimulation_object = mcSimulation_results,
 #the 25th and 75th percentiles (sides of boxes) and any outliers 
 #(light circles outside of boxes).
 
-decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
+decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results_way1, 
                                     vars = c("NPV_no_branch",
                                              "NPV_branch"),
                                     method = 'boxplot')
@@ -361,8 +400,9 @@ decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results,
 #(difference in NPV between do and do not do). 
 #This can be quite helpful for us since it shows us the outcome 
 #distribution of the decision itself.
-decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results, 
-                                    vars = "NPV_decision",
+decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results_way1, 
+                                    vars = c("NPV_no_branch",
+                                    "NPV_branch"),
                                     method = 'boxplot_density')
 
 ####Cashflow analysis####
@@ -373,8 +413,7 @@ decisionSupport::plot_distributions(mcSimulation_object = mcSimulation_results,
 #specified cashflow outputs from the mcSimulation() function 
 #(in our case Cashflow_decision_do) to show cashflow over time.
 
-
-Cashflow <- plot_cashflow(mcSimulation_object = mcSimulation_results_way1, cashflow_var_name = "Cashflow" )
+Cashflow <- plot_cashflow(mcSimulation_object = mcSimulation_results_way1, cashflow_var_name = "Cashflow_decision_gender")
 
 
 ####Projection to Latent Structures (PLS) analysis####
@@ -422,7 +461,7 @@ evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_decision")
 plot_evpi(evpi, decision_vars = "NPV_decision")
 
 
-## in the compound figute, we are forced to use the wrong input table as an input, therefore we get bad results for some plots.
+## in the compound figure, we are forced to use the wrong input table as an input, therefore we get bad results for some plots.
 compound_figure(mcSimulation_object = mcSimulation_results_way1, 
                 input_table = input_table_gender, plsrResults = pls_result, 
                 EVPIresults = evpi, decision_var_name = "NPV_decision", 
