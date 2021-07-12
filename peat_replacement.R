@@ -65,4 +65,4 @@ chile_mc_simulation
 decisionSupport::plot_distributions(mcSimulation_object = chile_mc_simulation,
                                     vars = c("SmallFarmer", "BigFarmer"),
                                     method = 'smooth_simple_overlay',
-                                    base_size = 7)
+                                    base_size = 12)
